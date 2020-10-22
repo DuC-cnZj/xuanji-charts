@@ -1,17 +1,19 @@
 helmWrapper:
+  helmRepos: []
+    # - name: xuanji
+    #   url: http://chartmuseum-chartmuseum.default.svc.cluster.local:8080
   image:
     repository: duccnzj/helm
     tag: "v8"
 
 ws:
-  helmRepoUrl: "http://chartmuseum-chartmuseum.default.svc.cluster.local:8080"
   image:
     repository: duccnzj/ws
     tag: "v3"
   service:
     type: ClusterIP
   ingress:
-    enabled: true
+    enabled: false
     annotations: {}
       # cert-manager.io/cluster-issuer: "letsencrypt-prod"
       # kubernetes.io/ingress.class: nginx

@@ -7,6 +7,10 @@ metadata:
 data:
   config: |
     uploadPath: /tmp/charts
+{{ if gt (len .Values.helmWrapper.helmRepos) 0 }}
     helmRepos:
-      - name: xuanji
-        url: {{ default "http://chartmuseum-chartmuseum.default.svc.cluster.local:8080" .Values.helmWrapper.helmRepoUrl }}
+  {{- range .Values.helmWrapper.helmRepos }}
+      - name: {{ .name }}
+        url: {{ default "http://chartmuseum-chartmuseum.default.svc.cluster.local:8080" .url }}
+  {{- end -}}
+{{- end }}
