@@ -16,6 +16,7 @@
 
 
 
+
 | Field                       | value                    | default             |
 | --------------------------- | ------------------------ | ------------------- |
 | config.APP_NAME             | app title                | 玄机                |
@@ -30,6 +31,7 @@
 | config.GITLAB_TOKEN         |                          | "" |
 | config.MIX_SHELL_SOCKET_URL | host of ws server        | "" |
 | config.WILDCARD_DOMAIN      |                          | "" |
-| config.DOCKER_AUTH          | echo "${docker_username} | ${docker_password}" |
+| config.DOCKER_AUTH          |  | `echo "${docker_username}|${docker_password}"|base64` |
 | config.DOCKER_SERVER        |                          |https://index.docker.io/v1/|
+
 
