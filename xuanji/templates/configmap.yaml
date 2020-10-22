@@ -39,6 +39,5 @@ data:
     WILDCARD_DOMAIN={{ .Values.config.WILDCARD_DOMAIN }}
 
     # 自动创建 imagepullsecret
-    DOCKER_USERNAME={{ .Values.config.DOCKER_USERNAME }}
-    DOCKER_PASSWORD={{ .Values.config.DOCKER_PASSWORD }}
+    DOCKER_AUTH={{ .Values.config.DOCKER_AUTH }}
     DOCKER_SERVER={{ .Values.config.DOCKER_SERVER }}
