@@ -42,18 +42,24 @@ ingress:
   tls: []
 
 config: {}
+  # 默认“玄机”
   # APP_NAME:
-  # APP_KEY
   # DB_HOST:
   # DB_PORT:
   # DB_DATABASE:
   # DB_USERNAME:
   # DB_PASSWORD:
+
+  # 是否开启sso, 默认 false
   # SSO_ENABLED:
   # SSO_BASE_URL:
+
   # GITLAB_URL:
   # GITLAB_TOKEN:
+
   # MIX_SHELL_SOCKET_URL:
   # WILDCARD_DOMAIN:
+
+  # echo "${docker_username}|${docker_password}" | base64
   # DOCKER_AUTH:
   # DOCKER_SERVER:
