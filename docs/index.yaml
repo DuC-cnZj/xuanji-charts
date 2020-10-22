@@ -3,12 +3,12 @@ entries:
   xuanji:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-10-22T17:24:28.975254+08:00"
+    created: "2020-10-22T17:46:56.434158+08:00"
     description: A Helm chart for Kubernetes
-    digest: fc366ceda0204c754b3e5d3fd335f3f0818f0d0608b7205967d3aadfb0846a13
+    digest: 49dc6e364c942195755d1e5f8529e4a376269467343f4c9e54f632039c7aa2fa
     name: xuanji
     type: application
     urls:
     - https://duc-cnzj.github.io/xuanji-charts/xuanji-0.1.0.tgz
     version: 0.1.0
-generated: "2020-10-22T17:24:28.966214+08:00"
+generated: "2020-10-22T17:46:56.433196+08:00"
