@@ -17,7 +17,11 @@ ws:
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     hosts: []
+    #   - ws.example.com
     tls: []
+    # - secretName: ws-tls
+    #   hosts:
+    #     - ws.example.com
 
 replicaCount: 1
 
@@ -39,7 +43,11 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts: []
+  #   - xuanji.example.com
   tls: []
+  # - secretName: xuanji-tls
+  #   hosts:
+  #     - xuanji.example.com
 
 config: {}
   # 默认“玄机”
