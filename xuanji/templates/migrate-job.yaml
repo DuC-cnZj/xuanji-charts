@@ -1,0 +1,49 @@
+{{- if .Release.IsInstall -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "xuanji.fullname" . }}-db-migrator-when-install
+spec:
+  template:
+    spec:
+      volumes:
+      - name: env
+        configMap:
+          name: {{ include "xuanji.fullname" . }}-configmap
+          items: 
+            - key: env
+              path: .env
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      restartPolicy: Never
+      initContainers:
+      - name: check-db-ready
+        volumeMounts:
+          - mountPath: /var/www/html/.env
+            name: env
+            subPath: .env
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: 
+          - "bash"
+          - "/var/www/html/wait-for-it.sh"
+          - "-h"
+          - "{{ .Values.config.DB_HOST }}"
+          - "-p"
+          - "{{ .Values.config.DB_PORT }}"
+      containers:
+      - name: db-migrator
+        volumeMounts:
+          - mountPath: /var/www/html/.env
+            name: env
+            subPath: .env
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command: 
+          - "php"
+          - "/var/www/html/artisan"
+          - "migrate"
+          - "--force"
+{{- end }}
