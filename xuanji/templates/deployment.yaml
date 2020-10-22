@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "xuanji.fullname" . }}-app
+  labels:
+    {{- include "xuanji.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "xuanji.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        app: xuanji
+        {{- include "xuanji.selectorLabels" . | nindent 8 }}
+    spec:
+      volumes:
+          - name: env
+            configMap:
+              name: {{ include "xuanji.fullname" . }}-configmap
+              items: 
+                - key: env
+                  path: .env
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: xuanji-sa
+      containers:
+        - name: app
+          volumeMounts:
+              - mountPath: /var/www/html/.env
+                name: env
+                subPath: .env
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: http

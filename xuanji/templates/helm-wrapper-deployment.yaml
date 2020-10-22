@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "xuanji.fullname" . }}-helm-wrapper
+  labels:
+    {{- include "xuanji.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "xuanji.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/helm-wrapper-configmap.yaml") . | sha256sum }}
+      labels:
+        app: helm-wrapper
+        {{- include "xuanji.selectorLabels" . | nindent 8 }}
+    spec:
+      volumes:
+          - name: helm-wrapper-configmap
+            configMap:
+              name: {{ include "xuanji.fullname" . }}-helm-wrapper-configmap
+              items: 
+                - key: config
+                  path: helm-wrapper-config.yaml
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: helm-wrapper-sa
+      containers:
+        - name: helm-wrapper-app
+          volumeMounts:
+              - name: helm-wrapper-configmap
+                mountPath: /config
+          image: "{{ .Values.helmWrapper.image.repository }}:{{ .Values.helmWrapper.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+              - "/app"
+              - "--config=/config/helm-wrapper-config.yaml"
+              - "--port=80"
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http

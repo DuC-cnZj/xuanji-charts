@@ -1,0 +1,39 @@
+{{- if .Values.ws.ingress.enabled -}}
+{{- $fullName := include "xuanji.fullname" . -}}
+{{- $svcPort := .Values.ws.service.port -}}
+{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-ws
+  labels:
+    {{- include "xuanji.labels" . | nindent 4 }}
+  {{- with .Values.ws.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.ws.ingress.tls }}
+  tls:
+    {{- range .Values.ws.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- range .Values.ws.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ $fullName }}-ws
+              servicePort: {{ $svcPort }}
+    {{- end }}
+  {{- end }}

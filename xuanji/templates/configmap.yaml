@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "xuanji.fullname" . }}-configmap
+  labels:
+    {{- include "xuanji.labels" . | nindent 4 }}
+data:
+  env: |
+    APP_NAME={{ default "玄机" .Values.config.APP_NAME }}
+    APP_KEY={{ default "base64:Lfv97LJROI10OXPQUsS7tfuujiaJRJU1Xz7HhjsXrn8=" .Values.config.APP_KEY }}
+
+    LOG_CHANNEL=stderr
+
+    DB_CONNECTION=mysql
+    DB_HOST={{ .Values.config.DB_HOST }}
+    DB_PORT={{ default "3306" .Values.config.DB_PORT }}
+    DB_DATABASE={{ default "xuanji" .Values.config.DB_DATABASE }}
+    DB_USERNAME={{ default "root" .Values.config.DB_USERNAME }}
+    DB_PASSWORD={{ default "" .Values.config.DB_PASSWORD }}
+
+    BROADCAST_DRIVER=log
+    CACHE_DRIVER=file
+    QUEUE_CONNECTION=sync
+    SESSION_DRIVER=file
+    SESSION_LIFETIME=120
+
+    SSO_ENABLED={{ default false .Values.config.SSO_ENABLED }}
+    SSO_PROJECT_NAME=xuanji
+    SSO_BASE_URL={{ .Values.config.SSO_BASE_URL }}
+
+    GITLAB_URL={{ .Values.config.GITLAB_URL }}
+    GITLAB_TOKEN={{ .Values.config.GITLAB_TOKEN }}
+
+    HELM_API_BASE_URL=http://{{ include "xuanji.fullname" . }}-helm-warpper.{{ .Release.Namespace }}.svc.cluster.local
+
+    MIX_SHELL_SOCKET_URL={{ .Values.config.MIX_SHELL_SOCKET_URL }}
+    MIX_NS_PREFIX=devops-
+
+    WILDCARD_DOMAIN={{ .Values.config.WILDCARD_DOMAIN }}
+
+    # 自动创建 imagepullsecret
+    DOCKER_USERNAME={{ .Values.config.DOCKER_USERNAME }}
+    DOCKER_PASSWORD={{ .Values.config.DOCKER_PASSWORD }}
+    DOCKER_SERVER={{ .Values.config.DOCKER_SERVER }}

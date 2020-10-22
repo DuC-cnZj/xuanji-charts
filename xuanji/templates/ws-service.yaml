@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "xuanji.fullname" . }}-ws
+  labels:
+    {{- include "xuanji.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.ws.service.type }}
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: ws
+    {{- include "xuanji.selectorLabels" . | nindent 4 }}

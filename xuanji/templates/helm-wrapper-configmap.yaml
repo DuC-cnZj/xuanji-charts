@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "xuanji.fullname" . }}-helm-wrapper-configmap
+  labels:
+    {{- include "xuanji.labels" . | nindent 4 }}
+data:
+  config: |
+    uploadPath: /tmp/charts
+    helmRepos:
+      - name: xuanji
+        url: {{ default "http://chartmuseum-chartmuseum.default.svc.cluster.local:8080" .Values.helmWrapper.helmRepoUrl }}
