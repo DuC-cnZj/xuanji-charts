@@ -41,3 +41,5 @@ data:
     # 自动创建 imagepullsecret
     DOCKER_AUTH={{ .Values.config.DOCKER_AUTH }}
     DOCKER_SERVER={{ .Values.config.DOCKER_SERVER }}
+
+    TRUSTED_PROXY="*"

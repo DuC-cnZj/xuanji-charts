@@ -31,7 +31,7 @@ image:
   repository: duccnzj/xuanji
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v14"
+  tag: "v18"
 
 imagePullSecrets: []
 
