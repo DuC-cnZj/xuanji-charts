@@ -11,6 +11,9 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+{{ if eq .Values.ws.service.type "NodePort" }}
+      nodePort: {{ .Values.ws.service.nodePort }}
+{{ end }}
   selector:
     app: ws
     {{- include "xuanji.selectorLabels" . | nindent 4 }}

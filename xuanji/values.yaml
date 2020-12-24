@@ -12,6 +12,7 @@ ws:
     tag: "v3"
   service:
     type: ClusterIP
+    nodePort: 32222
   ingress:
     enabled: false
     annotations: {}
@@ -37,6 +38,7 @@ imagePullSecrets: []
 
 service:
   type: ClusterIP
+  nodePort: 32221
 
 ingress:
   enabled: false
