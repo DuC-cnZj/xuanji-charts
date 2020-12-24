@@ -10,7 +10,7 @@ roleRef:
   name: xuanji
 subjects:
   - kind: ServiceAccount
-    name: xuanji
+    name: xuanji-sa
     namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
