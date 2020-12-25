@@ -31,7 +31,7 @@ data:
     GITLAB_URL={{ .Values.config.GITLAB_URL }}
     GITLAB_TOKEN={{ .Values.config.GITLAB_TOKEN }}
 
-    HELM_API_BASE_URL=http://{{ include "xuanji.fullname" . }}-helm-warpper.{{ .Release.Namespace }}.svc.cluster.local
+    HELM_API_BASE_URL=http://{{ include "xuanji.fullname" . }}-helm-wrapper.{{ .Release.Namespace }}.svc.cluster.local
 
     MIX_SHELL_SOCKET_URL={{ .Values.config.MIX_SHELL_SOCKET_URL }}
     MIX_NS_PREFIX=devops-

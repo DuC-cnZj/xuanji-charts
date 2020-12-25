@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: helm-warpper-sa
+  name: helm-wrapper-sa
   labels:
     {{- include "xuanji.labels" . | nindent 4 }}
 roleRef:
@@ -10,5 +10,5 @@ roleRef:
   name: cluster-admin
 subjects:
   - kind: ServiceAccount
-    name: helm-warpper-sa
+    name: helm-wrapper-sa
     namespace: {{ .Release.Namespace }}
