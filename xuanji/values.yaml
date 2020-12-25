@@ -73,3 +73,6 @@ config: {}
   # echo "${docker_username}|${docker_password}" | base64
   # DOCKER_AUTH:
   # DOCKER_SERVER:
+
+  # 没有外网ip时需要提供
+  # CLUSTER_IP:
