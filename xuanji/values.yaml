@@ -26,8 +26,6 @@ ws:
     #   hosts:
     #     - ws.example.com
 
-replicaCount: 1
-
 image:
   repository: duccnzj/xuanji
   pullPolicy: IfNotPresent
