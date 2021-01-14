@@ -7,6 +7,7 @@ metadata:
 spec:
   selector:
     matchLabels:
+      app: xuanji
       {{- include "xuanji.selectorLabels" . | nindent 6 }}
   template:
     metadata:

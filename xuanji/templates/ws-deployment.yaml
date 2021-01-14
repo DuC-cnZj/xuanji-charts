@@ -9,6 +9,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
+      app: ws
       {{- include "xuanji.selectorLabels" . | nindent 6 }}
   template:
     metadata:
