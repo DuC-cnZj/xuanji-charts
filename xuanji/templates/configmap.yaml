@@ -45,3 +45,5 @@ data:
     TRUSTED_PROXY="*"
     # 没有外网ip时需要提供
     CLUSTER_IP={{ default "null" .Values.config.CLUSTER_IP }}
+
+    CLUSTER_ISSUER={{ .Values.config.CLUSTER_ISSUER }}

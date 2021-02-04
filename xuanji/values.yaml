@@ -76,3 +76,5 @@ config: {}
 
   # 没有外网ip时需要提供
   # CLUSTER_IP:
+
+  # CLUSTER_ISSUER:
