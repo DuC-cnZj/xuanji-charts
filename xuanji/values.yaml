@@ -78,3 +78,6 @@ config: {}
   # CLUSTER_IP:
 
   # CLUSTER_ISSUER:
+
+  # k8s namespace prefix
+  # MIX_NS_PREFIX: devops-
