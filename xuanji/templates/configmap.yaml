@@ -34,7 +34,7 @@ data:
     HELM_API_BASE_URL=http://{{ include "xuanji.fullname" . }}-helm-wrapper.{{ .Release.Namespace }}.svc.cluster.local
 
     MIX_SHELL_SOCKET_URL={{ .Values.config.MIX_SHELL_SOCKET_URL }}
-    MIX_NS_PREFIX={{ defalut "devops-" .Values.config.MIX_NS_PREFIX }}
+    MIX_NS_PREFIX={{ default "devops-" .Values.config.MIX_NS_PREFIX }}
 
     WILDCARD_DOMAIN={{ .Values.config.WILDCARD_DOMAIN }}
 
